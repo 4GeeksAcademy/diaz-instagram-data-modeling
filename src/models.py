@@ -8,53 +8,59 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class User(Base):
-    __tablename__ = 'user'
+class Follower (Base):
+    __tablename__= 'Follower'
+    id = Column(Integer, primary_key=True)
+    user_to_id = Column(Integer,nullable=False)
+    user_from_id = Column(Integer,nullable=False)
+    user_id = Column(String,ForeignKey('user.id'))
+    
+
+class User (Base):
+    __tablename__ = 'User'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    firts_name = Column(String(250), nullable=False)
     last_name = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
     email =  Column(String(250), nullable=False)
+    user_name = Column(String(250), nullable=False)
+    relationship (Follower)
+
 class Post (Base):
-    __tablename__= 'post'
+    __tablename__= 'Post'
     id = Column(Integer, primary_key=True)
     user_id = Column(String,ForeignKey('user.id'))
     user = relationship(User)
-class Followers (Base):
-    __tablename__= 'fallowers'
-    id = Column(Integer, primary_key=True)
-    number_of_followers = Column(Integer,nullable=False)
-    user_id = Column(String,ForeignKey('user.id'))
-    user = relationship(User)
-class Follows (Base):
-    __tablename__= 'fallows'
-    id = Column(Integer, primary_key=True)
-    number_of_follows = Column(Integer,nullable=False)
 
-    user_id = Column(String,ForeignKey('user.id'))
-    user = relationship(User)    
 
-class Likes (Base):
-    __tablename__= 'likes'
-    id = Column(Integer, primary_key=True)
 
-    post_id = Column(String,ForeignKey('post.id'))
-    post = relationship(Post)
-
-    user_id = Column(String,ForeignKey('user.id'))
-    user = relationship(User)
-
-class Comments (Base):
-    __tablename__= 'comments'
+class Comment (Base):
+    __tablename__= 'Comment'
     id = Column(Integer, primary_key=True)
 
     post_id = Column(String,ForeignKey('post.id'))
     post = relationship(Post) 
 
-    user_id = Column(String,ForeignKey('user.id'))
+    author_id = Column(String,ForeignKey('user.id'))
     user = relationship(User)  
+
+
+class Media (Base):
+    __tablename__= 'Media'
+    id = Column(Integer, primary_key=True)
+    type = Column(String(250), nullable=False)
+    Url = Column(String(250), nullable=False)
+
+    post_id = Column(String,ForeignKey('post.id'))
+    post = relationship(Post)
+
+    
+
+    
+
+
 
 
 
