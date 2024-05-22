@@ -13,7 +13,7 @@ class Follower (Base):
     id = Column(Integer, primary_key=True)
     user_to_id = Column(Integer,nullable=False)
     user_from_id = Column(Integer,nullable=False)
-    user_id = Column(String,ForeignKey('user.id'))
+   
     
 
 class User (Base):
@@ -23,10 +23,10 @@ class User (Base):
     id = Column(Integer, primary_key=True)
     firts_name = Column(String(250), nullable=False)
     last_name = Column(String(250), nullable=False)
-    password = Column(String(250), nullable=False)
     email =  Column(String(250), nullable=False)
     user_name = Column(String(250), nullable=False)
     relationship (Follower)
+
 
 class Post (Base):
     __tablename__= 'Post'
@@ -40,6 +40,8 @@ class Comment (Base):
     __tablename__= 'Comment'
     id = Column(Integer, primary_key=True)
 
+    comment_text = Column(String(250), nullable=False)
+
     post_id = Column(String,ForeignKey('post.id'))
     post = relationship(Post) 
 
@@ -51,7 +53,7 @@ class Media (Base):
     __tablename__= 'Media'
     id = Column(Integer, primary_key=True)
     type = Column(String(250), nullable=False)
-    Url = Column(String(250), nullable=False)
+    url = Column(String(250), nullable=False)
 
     post_id = Column(String,ForeignKey('post.id'))
     post = relationship(Post)
